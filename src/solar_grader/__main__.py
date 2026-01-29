@@ -4,7 +4,7 @@ from .parser import DocumentParser
 
 def main():
     print("==========================================")
-    print("   ☀️  Solar Grader CLI Mode ")
+    print("     Solar Grader CLI Mode ")
     print("==========================================")
     print("Note: This package is optimized for the Streamlit Web Application.")
     print("Please run: streamlit run app.py")

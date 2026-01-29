@@ -17,7 +17,6 @@ class DocumentParser:
         mime_type, _ = mimetypes.guess_type(file_path)
         ext = os.path.splitext(file_path)[1].lower()
         
-        # Define extensions suitable for raw text reading
         code_extensions = {
             '.py', '.java', '.c', '.cpp', '.h', '.js', '.ts', '.html', 
             '.css', '.txt', '.md', '.json', '.xml', '.sql', '.sh'
@@ -74,33 +73,29 @@ class DocumentParser:
             response.raise_for_status()
             result = response.json()
             
-            # --- DEBUG LOGGING ---
+            # # --- DEBUG LOGGING ---
             from .logger import get_logger
-            import json
+            #import json
             logger = get_logger()
-            # Log the full response to analyze why content might be empty
-            logger.debug(f"Full Upstage API Response: {json.dumps(result, ensure_ascii=False)}")
-            # ---------------------
+            # # Log the full response to analyze why content might be empty
+            # logger.debug(f"Full Upstage API Response: {json.dumps(result, ensure_ascii=False)}")
+            # # ---------------------
             
             markdown_text = ""
             
-            # 1. Try 'content' -> 'markdown'
             if "content" in result and isinstance(result["content"], dict):
                 markdown_text = result["content"].get("markdown", "")
                 
-            # 2. If valid markdown not found, try 'content' -> 'html'
             if not markdown_text and "content" in result and isinstance(result["content"], dict):
                 html_content = result["content"].get("html", "")
                 if html_content:
                     logger.warning("Markdown content was empty. Using 'content.html'.")
                     markdown_text = html_content 
 
-            # 3. If empty, try 'content' -> 'text'
             if not markdown_text and "content" in result and isinstance(result["content"], dict):
                 logger.warning("Markdown/HTML content was empty. Trying 'content.text'.")
                 markdown_text = result["content"].get("text", "")
 
-            # 4. If still empty, rely on 'elements' reconstruction
             if not markdown_text and "elements" in result:
                  logger.warning("Content fields empty. Reconstructing from 'elements'.")
                  for element in result['elements']:

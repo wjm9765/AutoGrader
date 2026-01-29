@@ -8,7 +8,7 @@ version = "0.1.0"
 description = "Automatic Grading System for Coding Assignments using Upstage Solar & Document Parse"
 readme = "README.md"
 authors = [
-  { name = "Your Name", email = "your.email@example.com" },
+  { name = "WJM", email = "wjm9765@naver.com" },
 ]
 requires-python = ">=3.9"
 classifiers = [
@@ -26,7 +26,7 @@ dependencies = [
 ]
 
 [project.urls]
-"Homepage" = "https://github.com/your-repo/solar-grader"
+"Homepage" = "https://github.com/wjm9765/AutoGrader"
 
 [project.scripts]
 solar-grader = "solar_grader.__main__:main"
