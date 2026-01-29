@@ -39,6 +39,8 @@ Execute the startup script to launch the application:
 
 ### 3. Workflow
 
+Note>you can use data folder, which it has temp.zip(as python code) and temp_pdf.zip(as pdf file)
+
 1.  **Upload Assignment Description**: Upload the assignment description file (PDF format).
 2.  **Upload Grading Criteria**: Upload a text file containing the grading criteria. For higher quality grading and more detailed feedback, ensure this file contains specific and comprehensive rules.
 3.  **Upload Student Submissions**: Upload a ZIP file containing student submissions.
