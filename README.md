@@ -1,57 +1,47 @@
-# Solar Grader ☀️
+# Solar Grader
 
-**Upstage Solar LLM**과 **Document Parse**를 활용한 코딩 과제 자동 채점 시스템입니다.
+An automated grading system for coding assignments, leveraging Large Language Models and Document AI for analysis.
 
-## 🌟 Key Features
+## Technologies
 
-1.  **PDF 과제 명세서 자동 분석**: Upstage Document Parse를 통해 과제 설명과 요구사항을 정확하게 추출합니다.
-2.  **학생 답안 일괄 처리**: ZIP 파일로 제출된 학생들의 답안을 자동으로 압축 해제하고, 학번 기준으로 분류합니다.
-3.  **하이브리드 코드 분석**:
-    *   **소스 코드 파일(.py, .java 등)**: 직접 텍스트를 읽어 분석합니다.
-    *   **손코딩 이미지/PDF**: Upstage Document Parse(OCR)를 이용해 텍스트로 변환 후 분석합니다.
-4.  **AI 조교 채점**: Solar LLM이 과제 명세서, 채점 기준, 학생 코드를 바탕으로 공정한 피드백과 점수를 제공합니다.
+This project is built using the following technologies:
 
-## 📂 Project Structure
+- **Model**: `solar-pro3`
+- **Document Processing**: Upstage Document Parser
 
-```text
-solar-grader/
-├── .env                    # API Keys
-├── .gitignore
-├── pyproject.toml          # Project metadata & dependencies
-├── requirements.txt        # Deployment dependencies
-├── app.py                  # Streamlit Application
-├── data/
-│   ├── assignment.pdf      # Example Assignment
-│   ├── criteria.txt        # Example Criteria
-│   └── submissions.zip     # Example Submissions
-└── src/
-    └── solar_grader/
-        ├── __init__.py     # Package initialization
-        ├── __main__.py     # CLI entry point
-        ├── config.py       # Configuration
-        ├── parser.py       # Upstage Document Parse wrapper
-        ├── grader.py       # Solar LLM wrapper
-        └── utils.py        # File handling (ZIP, Student Matching)
+To modify configurations such as the model version or API endpoints, edit `src/solar_grader/config.py`.
+
+## Installation
+
+This project uses `uv` for dependency management. To install the required dependencies, run the following command:
+
+```bash
+uv sync
 ```
 
-## 🚀 Quick Start
+## Usage
 
-1. Install dependencies:
-    ```bash
-    pip install .
-    ```
+### 1. Configure Environment Variables
 
-2. Set API Key in `.env`:
-    ```text
-    UPSTAGE_API_KEY=your_api_key_here
-    ```
+Before running the application, you must set the `UPSTAGE_API_KEY` environment variable.
 
-3. Run Streamlit App:
-    ```bash
-    streamlit run app.py
-    ```
+```bash
+export UPSTAGE_API_KEY=your_api_key_here
+```
 
-## 🧠 Why Upstage?
+### 2. Run the Application
 
-- **Solar LLM**: 한국어와 영어 문맥 처리에 탁월하여, 학생들의 주석이나 한글 변수명도 정확하게 이해하고 피드백을 제공할 수 있습니다.
-- **Document Parse**: 단순히 글자만 읽는 OCR이 아니라, 문서의 **구조(Layout)**를 이해하므로 과제 명세서의 표나 복잡한 서식도 놓치지 않고 파싱합니다. 손코딩 과제 채점에 필수적입니다.
+Execute the startup script to launch the application:
+
+```bash
+./scripts/run.sh
+```
+
+### 3. Workflow
+
+1.  **Upload Assignment Description**: Upload the assignment description file (PDF format).
+2.  **Upload Grading Criteria**: Upload a text file containing the grading criteria. For higher quality grading and more detailed feedback, ensure this file contains specific and comprehensive rules.
+3.  **Upload Student Submissions**: Upload a ZIP file containing student submissions.
+    *   **PDF Submissions**: These will be processed using the Upstage Document Parser before the content is forwarded to the grading model.
+    *   **Source Code (.py) Submissions**: These files will be read as raw text and passed directly to the model.
+4.  **View Results**: The application will generate a grading table displaying the results for each student.
